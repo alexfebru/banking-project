@@ -12,5 +12,8 @@ public interface AccountService {
     AccountDto deposit(UUID id, Double amount);
     AccountDto withdraw(UUID id, Double amount);
 
+    AccountDto deleteAccount(UUID id);
+
     List<AccountDto> getAllAccounts();
+
 }

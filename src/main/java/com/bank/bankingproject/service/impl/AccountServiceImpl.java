@@ -1,6 +1,7 @@
 package com.bank.bankingproject.service.impl;
 
 import com.bank.bankingproject.dto.AccountDto;
+import com.bank.bankingproject.excetion.AccountException;
 import com.bank.bankingproject.mapper.AccountMapper;
 import com.bank.bankingproject.model.Account;
 import com.bank.bankingproject.repository.AccountRepository;
@@ -34,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository
                 .findById(id)
                 .orElseThrow(
-                        ()-> new RuntimeException("Account ID: " + id + "not found")
+                        ()-> new AccountException("Account ID: " + id + "not found")
                 );
         return AccountMapper.mapToAccountDto(account);
     }
@@ -44,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository
                 .findById(id)
                 .orElseThrow(
-                        ()-> new RuntimeException("Account ID: " + id + "not found")
+                        ()-> new AccountException("Account ID: " + id + "not found")
                 );
         double totalAmount = account.getBalance() + amount;
         account.setBalance(totalAmount);
@@ -57,17 +58,28 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository
                 .findById(id)
                 .orElseThrow(
-                        ()-> new RuntimeException("Account ID: " + id + "not found")
+                        ()-> new AccountException("Account ID: " + id + "not found")
                 );
 
         if (account.getBalance() < amount) {
-            throw new RuntimeException("Insufficient balance");
+            throw new AccountException("Insufficient balance");
         }
 
         double totalAmount = account.getBalance() - amount;
         account.setBalance(totalAmount);
         Account saveAccount = accountRepository.save(account);
         return AccountMapper.mapToAccountDto(saveAccount);
+    }
+
+    @Override
+    public AccountDto deleteAccount(UUID id) {
+        Account account = accountRepository
+                .findById(id)
+                .orElseThrow(
+                        ()-> new AccountException("Account ID: " + id + "not found")
+                );
+        accountRepository.delete(account);
+        return null;
     }
 
     @Override
