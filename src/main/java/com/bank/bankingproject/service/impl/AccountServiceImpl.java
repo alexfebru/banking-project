@@ -29,6 +29,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto getAccountById(UUID id) {
-        return null;
+        Account account = accountRepository
+                .findById(id)
+                .orElseThrow(
+                        ()-> new RuntimeException("Account ID: " + id + "not found")
+                );
+        return AccountMapper.mapToAccountDto(account);
     }
 }

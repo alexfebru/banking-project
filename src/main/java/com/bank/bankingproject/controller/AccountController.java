@@ -11,7 +11,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/v1/api/accounts")
+@RequestMapping("/api/v1/accounts")
 public class AccountController {
     private AccountService accountService;
 
@@ -20,10 +20,10 @@ public class AccountController {
     }
 
     // Get Account By ID REST API
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<AccountDto> getAccountById(@PathVariable UUID id) {
         AccountDto accountDto = accountService.getAccountById(id);
-        return new ResponseEntity<>(accountDto, HttpStatus.OK);
+        return ResponseEntity.ok(accountDto);
     }
 
     // Create Account REST API
