@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -30,5 +32,29 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<AccountDto> addAccount(@RequestBody AccountDto accountDto) {
         return new ResponseEntity<>(accountService.createAccount(accountDto), HttpStatus.CREATED);
+    }
+
+    // Deposit Account REST API
+    @PutMapping("/{id}/deposit")
+    public ResponseEntity<AccountDto> depositAccount(@PathVariable UUID id,@RequestBody Map<String, Double> request )  {
+
+        Double amount = request.get("amount");
+        AccountDto accountDto = accountService.deposit(id, amount);
+        return ResponseEntity.ok(accountDto);
+    }
+
+    // Deposit Account REST API
+    @PutMapping("/{id}/withdraw")
+    public ResponseEntity<AccountDto> withdrawAccount(@PathVariable UUID id,@RequestBody Map<String, Double> request)  {
+        Double amount = request.get("amount");
+        AccountDto accountDto = accountService.withdraw(id, amount);
+        return ResponseEntity.ok(accountDto);
+    }
+
+    // Get All Account REST API
+    @GetMapping
+    public ResponseEntity<List<AccountDto>> getAllAccounts() {
+        List<AccountDto> accounts = accountService.getAllAccounts();
+        return ResponseEntity.ok(accounts);
     }
 }
