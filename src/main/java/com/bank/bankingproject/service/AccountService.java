@@ -1,19 +1,26 @@
 package com.bank.bankingproject.service;
 
-import com.bank.bankingproject.dto.AccountDto;
+import com.bank.bankingproject.dto.AccountDTO;
+import com.bank.bankingproject.dto.TransactionDTO;
+import com.bank.bankingproject.dto.TransferFundDTO;
+import com.bank.bankingproject.model.Transaction;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AccountService {
 
-    AccountDto createAccount(AccountDto accountDto);
-    AccountDto getAccountById(UUID id);
-    AccountDto deposit(UUID id, Double amount);
-    AccountDto withdraw(UUID id, Double amount);
+    AccountDTO createAccount(AccountDTO accountDto);
+    AccountDTO getAccountById(UUID id);
+    AccountDTO deposit(UUID id, Double amount);
+    AccountDTO withdraw(UUID id, Double amount);
 
-    AccountDto deleteAccount(UUID id);
+    AccountDTO deleteAccount(UUID id);
 
-    List<AccountDto> getAllAccounts();
+    List<AccountDTO> getAllAccounts();
+
+    void transferFunds(TransferFundDTO transferFundDTO);
+
+    List<TransactionDTO> getAccountTransactions(UUID id);
 
 }

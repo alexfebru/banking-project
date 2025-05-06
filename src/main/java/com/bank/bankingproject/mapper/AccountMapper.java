@@ -1,12 +1,12 @@
 package com.bank.bankingproject.mapper;
 
-import com.bank.bankingproject.dto.AccountDto;
+import com.bank.bankingproject.dto.AccountDTO;
 import com.bank.bankingproject.model.Account;
 
 public class AccountMapper {
 
     // static mapper for account
-    public static Account mapToAccount(AccountDto accountDto) {
+    public static Account mapToAccount(AccountDTO accountDto) {
         Account account = new Account(
                 accountDto.id(),
                 accountDto.accountHolderName(),
@@ -16,8 +16,8 @@ public class AccountMapper {
         return account;
     }
 
-    public static AccountDto mapToAccountDto(Account account) {
-        AccountDto accountDto = new AccountDto(
+    public static AccountDTO mapToAccountDto(Account account) {
+        AccountDTO accountDto = new AccountDTO(
                 account.getId(),
                 account.getAccountHolderName(),
                 account.getBalance()

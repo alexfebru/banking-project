@@ -18,6 +18,6 @@ package com.bank.bankingproject.dto;
 
 import java.util.UUID;
 
-public record AccountDto(UUID id, String accountHolderName, double balance) {
+public record AccountDTO(UUID id, String accountHolderName, double balance) {
 
 }
